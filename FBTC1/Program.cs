@@ -50,7 +50,7 @@ namespace FBTC1
         }
 
 
-        static IEnumerable<Type> GetLanguageTypes( ) => AppDomain.CurrentDomain.GetAssemblies( ).Select( x => x.GetExportedTypes( ).Where( x => x.GetCustomAttributes( typeof( LanguageGeneratorAttribute ), true ).Length > 0 ) ).SelectMany( x => x ).ToList( );
+        static IEnumerable<Type> GetLanguageTypes( ) => AppDomain.CurrentDomain.GetAssemblies( ).Select( x => x.GetExportedTypes( ).Where( y => y.GetCustomAttributes( typeof( LanguageGeneratorAttribute ), true ).Length > 0 ) ).SelectMany( x => x ).ToList( );
 
 
 
