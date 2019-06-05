@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FBT.Compiler": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"G:\\Users\\txt\\Documents\\Rime\\venice.fbc\\WeaponFiringData.fbc\" -o \"F:\\FBT_Test\" -l cs"
+    }
+  }
+}
