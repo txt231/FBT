@@ -1,24 +1,24 @@
-﻿using FBT.TypeData.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using FBT.TypeData.Base;
 
-namespace FBT.Module
+namespace FBT.Module;
+
+public class ModuleInfo
 {
-    public class ModuleInfo
-    {
-        public ModuleInfo( string p_Name )
-        {
-            this.Name = p_Name;
+	public string Name;
 
-            this.Types = new List<TypeDataBase>( );
-        }
+	public List<TypeDataBase> Types;
 
-        public string Name;
+	public ModuleInfo(string p_Name)
+	{
+		Name = p_Name;
 
-        public List<TypeDataBase> Types;
+		Types = new List<TypeDataBase>();
+	}
 
 
-        public void AddType( TypeDataBase p_Type ) => this.Types.Add( p_Type );
-    }
+	public void AddType(TypeDataBase p_Type)
+	{
+		Types.Add(p_Type);
+	}
 }

@@ -1,31 +1,28 @@
-﻿using FBT.Module;
+﻿using System.Collections.Generic;
+using FBT.Module;
 using FBT.TypeData.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FBT.TypeData
+namespace FBT.TypeData;
+
+public class TypeUnit
 {
-    public class TypeUnit
-    {
-        public TypeUnit( string p_Namespace )
-        {
-            this.Namespace = p_Namespace;
-        }
+	public List<TypeDataBase> Children = new();
 
-        public List<string> Includes = new List<string>( );
+	public List<string> Includes = new();
 
-        public ModuleInfo Module;
-        public string Namespace = null;
-        public string Path = null;
+	public bool IsResolved = false;
 
-        public List<TypeDataBase> Children = new List<TypeDataBase>( );
+	public ModuleInfo Module;
+	public string Namespace;
+	public string Path = null;
 
-        public bool IsResolved = false;
+	public TypeUnit(string p_Namespace)
+	{
+		Namespace = p_Namespace;
+	}
 
-        public void AddInclude( string p_Include )
-        {
-            this.Includes.Add( p_Include );
-        }
-    }
+	public void AddInclude(string p_Include)
+	{
+		Includes.Add(p_Include);
+	}
 }

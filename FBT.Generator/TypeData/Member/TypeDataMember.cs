@@ -1,21 +1,37 @@
 ﻿using FBT.TypeData.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FBT.TypeData.DefaultValue;
 
-namespace FBT.TypeData.Member
+namespace FBT.TypeData.Member;
+
+public class TypeDataMember
+	: TypeDataBase
 {
-    public class TypeDataMember
-        : TypeDataBase
-    {
-        public string Protection = null;
+	//public bool IsArray;
+	public int ArrayCount = -1;
 
-        public string UnresolvedBaseType = null;
-        public TypeDataBase BaseType = null;
+	public RefTypeData BaseType = new();
 
-        public int Offset;
+	public TypeDefault? DefaultValue = null;
 
-        public bool IsArray;
-        public int ArrayCount = -1;
-    }
+	public long Offset;
+	public string Protection = null;
+
+	public override bool HasMember(string p_MemberName)
+	{
+		return Name == p_MemberName;
+	}
+
+
+	public bool IsArray()
+	{
+		return BaseType.Data is TypeDataArray;
+	}
+
+	public TypeDataBase GetFieldType()
+	{
+		if (IsArray())
+			return (BaseType.Data as TypeDataArray)!.ArrayType;
+
+		return BaseType;
+	}
 }

@@ -1,13 +1,10 @@
-﻿using FBT.TypeData.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using FBT.TypeData.Base;
 
-namespace FBT.TypeData.Member
+namespace FBT.TypeData.Member;
+
+public class TypeDataEnum
+	: TypeDataBase
 {
-    public class TypeDataEnum
-        : TypeDataBase
-    {
-        public Dictionary<string, int> EnumDict = new Dictionary<string, int>( );
-    }
+	public Dictionary<string, int> EnumDict = new();
 }

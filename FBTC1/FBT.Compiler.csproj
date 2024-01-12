@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="CommandLineParser" Version="2.5.0"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FBT.Generator.Cpp\FBT.Generator.Cpp.csproj" />
-    <ProjectReference Include="..\FBT.Generator.Cs\FBT.Generator.Cs.csproj">
-      <Private>true</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\FBT.Generator\FBT.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\FBT.Generator.Cpp\FBT.Generator.Cpp.csproj"/>
+        <ProjectReference Include="..\FBT.Generator.Cs\FBT.Generator.Cs.csproj">
+            <Private>true</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\FBT.Generator\FBT.csproj"/>
+    </ItemGroup>
 
 </Project>

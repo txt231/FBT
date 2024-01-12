@@ -1,0 +1,105 @@
+///////////////////////////////////////////////////////////////
+//                                                           //
+// This is an automatically generated file.                  //
+// Do *NOT* modify unless you really know what you're doing. //
+//                                                           //
+///////////////////////////////////////////////////////////////
+
+
+#include <EntityVoiceOverInfo.fbt>
+#include <Vec3.fbt>
+#include <ControllableEntityData.fbt>
+#include <CString.fbt>
+#include <MPModeData.fbt>
+#include <Float32.fbt>
+#include <Boolean.fbt>
+#include <VehicleHealthZoneData.fbt>
+#include <ExplosionEntityData.fbt>
+#include <EffectBlueprint.fbt>
+#include <CompositeMeshAsset.fbt>
+#include <ObjectBlueprint.fbt>
+#include <VehicleHudData.fbt>
+#include <Int32.fbt>
+#include <AngleOfImpactData.fbt>
+#include <VehicleLockableInfoData.fbt>
+#include <VehicleSoundData.fbt>
+#include <VehicleAimAssistData.fbt>
+#include <VehicleIconType.fbt>
+
+
+namespace fb;
+
+module GameShared;
+
+[TypeCategory(1)]
+class align(0x10), size(0x0240) VehicleEntityData
+	: ControllableEntityData
+{
+	SystemSettings.Name = "Online";
+
+	LinearTransform Transform : 0x0010 = {
+		right = {
+		x = 1,
+		y = 0,
+		z = 0,
+	},
+		up = {
+		x = 0,
+		y = 1,
+		z = 0,
+	},
+		forward = {
+		x = 0,
+		y = 0,
+		z = 1,
+	},
+		trans = {
+		x = 0,
+		y = 0,
+		z = 0,
+	},
+	};
+
+
+	Vec2 Element1Size : 0x00d0 = {
+		x = 0.25,
+		y = 0.25,
+	};
+
+	
+	SurfaceShaderBaseAsset Element1Shader : 0x01e0 = null;
+
+	Vec3 FLIRKeyColor : 0x00a0 = {
+		x = 1,
+		y = 1,
+		z = 1,
+	};
+
+	MPModeData MPMode : 0x01e4 = {
+	};
+
+
+	AngleOfImpactData AngleOfImpact : 0x01c0 = {
+	};
+
+
+	VehicleLockableInfoData VehicleLockableInfo : 0x01f4 = {
+	};
+
+
+
+	Vec3 InteractionOffset : 0x0080 = {
+		x = 0,
+		y = 0,
+		z = 0,
+	};
+
+	Vec3 HealthBarPosOffset : 0x0070 = {
+		x = 0,
+		y = 2,
+		z = 0,
+	};
+
+
+}
+

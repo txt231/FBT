@@ -1,37 +1,49 @@
-﻿using FBT.TypeData.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FBT.TypeData.Base;
 using FBT.TypeData.Base.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FBT.TypeData.DefaultValue;
 
-namespace FBT.TypeData.Member
+namespace FBT.TypeData.Member;
+
+public class TypeDataClass
+	: TypeDataBase
 {
-    public class TypeDataClass
-        : TypeDataBase
-    {
-        public string Protection = null;
+	public List<BaseMemberValue> BaseValues = new();
 
-        public List<string> UnresolvedInherritedTypes = new List<string>( );
-        public List<TypeDataBase> InherritedTypes = new List<TypeDataBase>( );
+	public List<RefTypeData> InherritedTypes = new();
 
-        public int GetClassId( )
-        {
-            var s_NumeralAttribute = this.FindAttributeIgnoreCase( "classId" ) as TypeNumeralAttribute;
+	public string Protection = null;
 
-            if ( s_NumeralAttribute == null )
-                return -1;
+	public long GetClassId()
+	{
+		var s_NumeralAttribute = FindAttributeIgnoreCase("classId") as TypeNumeralAttribute;
 
-            return s_NumeralAttribute.Value;
-        }
+		if (s_NumeralAttribute == null)
+			return -1;
 
-        public int GetLastSubClassId( )
-        {
-            var s_NumeralAttribute = this.FindAttributeIgnoreCase( "lastSubClassId" ) as TypeNumeralAttribute;
+		return s_NumeralAttribute.Value;
+	}
 
-            if ( s_NumeralAttribute == null )
-                return -1;
+	public long GetLastSubClassId()
+	{
+		var s_NumeralAttribute = FindAttributeIgnoreCase("lastSubClassId") as TypeNumeralAttribute;
 
-            return s_NumeralAttribute.Value;
-        }
-    }
+		if (s_NumeralAttribute == null)
+			return -1;
+
+		return s_NumeralAttribute.Value;
+	}
+
+	public override bool HasMember(string p_MemberName)
+	{
+		return InherritedTypes.Any(x => x.Data?.HasMember(p_MemberName) ?? false) || base.HasMember(p_MemberName);
+	}
+
+	public class BaseMemberValue
+	{
+		public RefTypeData BaseClass { get; set; }
+		public string BaseField { get; set; }
+		public TypeDefault Value { get; set; }
+	}
 }

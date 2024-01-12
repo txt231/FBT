@@ -141,7 +141,7 @@ namespace FBT.Generator.Cpp
 
         void GenerateClass(IndentedTextWriter p_Writer, TypeDataClass p_Type)
         {
-            var s_DataContainerBase = p_Type.InherritedTypes.FirstOrDefault(x => x.Name == "DataContainer");
+            var s_DataContainerBase = p_Type.InherritedTypes.FirstOrDefault(x => x.Data.Name == "DataContainer");
 
 
             //TODO = Rimelib FrostbiteContainer
@@ -161,7 +161,7 @@ namespace FBT.Generator.Cpp
 
                 foreach (var s_Inherrit in p_Type.InherritedTypes)
                 {
-                    p_Writer.WriteLine($"{(FirstInherrit ? ":" : ",")} {s_Inherrit.Name}");
+                    p_Writer.WriteLine($"{(FirstInherrit ? ":" : ",")} {s_Inherrit.Data.Name}");
 
                     FirstInherrit = false;
                 }
@@ -233,13 +233,13 @@ namespace FBT.Generator.Cpp
                    p_Writer.Indent++;
                    {
                        if (x.BaseType is TypeDataEnum)
-                           p_Writer.WriteLine($"this.{x.Name} = ({x.BaseType.Name}) Enum.ToObject(typeof({x.BaseType.Name}), p_Value);");
+                           p_Writer.WriteLine($"this.{x.Name} = ({x.BaseType.Data.Name}) Enum.ToObject(typeof({x.BaseType.Data.Name}), p_Value);");
                        else if (x.BaseType is TypeDataClass)
-                           p_Writer.WriteLine($"this.{x.Name} = (CtrRef<{x.BaseType.Name}>) p_Value;");
+                           p_Writer.WriteLine($"this.{x.Name} = (CtrRef<{x.BaseType.Data.Name}>) p_Value;");
                        else if (x.BaseType != null)
-                           p_Writer.WriteLine($"this.{x.Name} = ({x.BaseType.Name}) p_Value;");
+                           p_Writer.WriteLine($"this.{x.Name} = ({x.BaseType.Data.Name}) p_Value;");
                        else
-                           p_Writer.WriteLine($"this.{x.Name} = ({x.UnresolvedBaseType}) p_Value;");
+                           p_Writer.WriteLine($"this.{x.Name} = ({x.BaseType.TypeName}) p_Value;");
 
                        p_Writer.WriteLine("break;");
                    }
@@ -347,15 +347,15 @@ namespace FBT.Generator.Cpp
         {
             p_Writer.WriteLine($"[ContainerField({p_Type.Offset})]");
 
-            string FieldType = (p_Type.BaseType != null ? p_Type.BaseType.Name : p_Type.UnresolvedBaseType);
+            string FieldType = (p_Type.BaseType != null ? p_Type.BaseType.Data.Name : p_Type.BaseType.TypeName);
 
 
-            if (p_Type.BaseType is TypeDataClass && p_Type.IsArray)
-                FieldType = $"RefArray<{p_Type.BaseType.Name}>";
-            else if (p_Type.BaseType is TypeDataClass)
-                FieldType = $"{p_Type.BaseType.Name}*";
-            else if (p_Type.IsArray)
-                FieldType = $"Array<{FieldType}>";
+            if (p_Type.BaseType.Data is TypeDataArray && (p_Type.BaseType.Data as TypeDataArray)!.ArrayType.Data is TypeDataClass)
+                FieldType = $"RefArray<{(p_Type.BaseType.Data as TypeDataArray)!.ArrayType.Data.Name}>";
+            else if (p_Type.BaseType.Data is TypeDataClass)
+                FieldType = $"{p_Type.BaseType.Data.Name}*";
+            else if (p_Type.BaseType.Data is TypeDataArray)
+                FieldType = $"Array<{(FieldType)}>";
 
 
 

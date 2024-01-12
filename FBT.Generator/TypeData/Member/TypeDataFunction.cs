@@ -2,7 +2,7 @@
 
 namespace FBT.TypeData.Member;
 
-public class TypeDataPrimitive
+internal class TypeDataFunction
 	: TypeDataBase
 {
 }

@@ -1,7 +1,10 @@
 # FBT
-Frostbite type dumper with custom format stuff...
 
+This was meant as a custom format and compiler for fb typeinfo.
 
-the FBT format uses antlr for parsing/lexing and has a wip dumper.
+Includes custom FBT format, made to be an extension of vu fbc format, made in a time where i didnt have access to fbcc.
 
-Currently only generation for c# is partially done.
+## Note
+
+- only c# generator should work
+

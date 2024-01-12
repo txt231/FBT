@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBT.Generator.Cs", "FBT.Gen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBT.Generator.Cpp", "FBT.Generator.Cpp\FBT.Generator.Cpp.csproj", "{A7072E7D-6B58-42AA-BAEE-869946D970AE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FBT.Dumper", "FBT.Dumper\FBT.Dumper.vcxproj", "{70D55E77-8AFB-42B2-8882-37AC59CAF719}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,16 +69,6 @@ Global
 		{A7072E7D-6B58-42AA-BAEE-869946D970AE}.Release|x64.Build.0 = Release|Any CPU
 		{A7072E7D-6B58-42AA-BAEE-869946D970AE}.Release|x86.ActiveCfg = Release|Any CPU
 		{A7072E7D-6B58-42AA-BAEE-869946D970AE}.Release|x86.Build.0 = Release|Any CPU
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Debug|x64.ActiveCfg = Debug|x64
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Debug|x64.Build.0 = Debug|x64
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Debug|x86.ActiveCfg = Debug|Win32
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Debug|x86.Build.0 = Debug|Win32
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Release|Any CPU.ActiveCfg = Release|Win32
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Release|x64.ActiveCfg = Release|x64
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Release|x64.Build.0 = Release|x64
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Release|x86.ActiveCfg = Release|Win32
-		{70D55E77-8AFB-42B2-8882-37AC59CAF719}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
