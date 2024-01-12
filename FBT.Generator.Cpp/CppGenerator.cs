@@ -148,7 +148,7 @@ namespace FBT.Generator.Cpp
 
             var s_AlignAttribute = p_Type.FindAttributeIgnoreCase("align") as TypeNumeralAttribute;
             if (s_AlignAttribute != null)
-                p_Writer.WriteLine($"#pragma push( pack, {s_AlignAttribute.Value} )"); //Not right pragma
+                p_Writer.WriteLine($"#pragma pack( push, {s_AlignAttribute.Value} )");
 
 
 
@@ -179,13 +179,17 @@ namespace FBT.Generator.Cpp
                 //this.GenerateValueByHash(p_Writer, p_Type);
                 //this.GenerateFieldInfoByHash(p_Writer, p_Type);
             }
+
+
+
             p_Writer.Indent--;
             p_Writer.WriteLine("}");
 
             if (s_AlignAttribute != null)
-                p_Writer.WriteLine($"#pragma push( pop )"); //Not right pragma
+                p_Writer.WriteLine($"#pragma pack( pop )"); //Not right pragma
 
-
+            //Generate typeinfo reflection
+            GenerateReflection(p_Writer, p_Type);
         }
 
         void GenerateValueType(IndentedTextWriter p_Writer, TypeDataValueType p_Type)
@@ -193,9 +197,8 @@ namespace FBT.Generator.Cpp
 
             var s_AlignAttribute = p_Type.FindAttributeIgnoreCase("align") as TypeNumeralAttribute;
             if (s_AlignAttribute != null)
-                p_Writer.WriteLine($"[ContainerType({s_AlignAttribute.Value})]");
-            else
-                p_Writer.WriteLine("[ContainerType]");
+                p_Writer.WriteLine($"#pragma pack( push, {s_AlignAttribute.Value} )");
+
 
 
             p_Writer.WriteLine($"struct {p_Type.Name}");
@@ -211,6 +214,14 @@ namespace FBT.Generator.Cpp
             }
             p_Writer.Indent--;
             p_Writer.WriteLine("}");
+
+            if (s_AlignAttribute != null)
+                p_Writer.WriteLine($"#pragma pack( pop )"); //Not right pragma
+
+
+            //Generate typeinfo reflection
+            GenerateReflection(p_Writer, p_Type);
+
         }
 
 
@@ -303,44 +314,30 @@ namespace FBT.Generator.Cpp
 
         }
 
-        void GenerateFieldInfoByHash(IndentedTextWriter p_Writer, TypeDataBase p_Type)
+        void GenerateReflection(IndentedTextWriter p_Writer, TypeDataBase p_Type)
         {
-            p_Writer.WriteLine("public override PropertyInfo GetFieldInfoByHash(uint p_Hash)");
+
+            p_Writer.WriteLine("template <>");
+            p_Writer.WriteLine($"fb::CString fb_type_name<{p_Type.Name}>( )");
             p_Writer.WriteLine("{");
             p_Writer.Indent++;
             {
-                p_Writer.WriteLine("switch (p_Hash)");
-                p_Writer.WriteLine("{");
-
-                p_Writer.Indent++;
-                {
-                    //TODO print members
-
-                    p_Type.Children.Where(x => x is TypeDataMember).Select(x => x as TypeDataMember).ToList().ForEach(x =>
-              {
-                  p_Writer.WriteLine($"case 0x{Util.Hash(x.Name):X}:");
-                  p_Writer.Indent++;
-                  {
-                      p_Writer.WriteLine($"return typeof({p_Type.Name}).GetProperty(nameof({x.Name}));");
-                  }
-                  p_Writer.Indent--;
-              });
-
-                    p_Writer.WriteLine("default:");
-                    p_Writer.Indent++;
-                    {
-                        p_Writer.WriteLine("return base.GetFieldInfoByHash(p_Hash);");
-                    }
-                    p_Writer.Indent--;
-                }
-                p_Writer.Indent--;
-                p_Writer.WriteLine("}");
+                p_Writer.WriteLine($"return \"{p_Type.Name}\"");
 
             }
             p_Writer.Indent--;
             p_Writer.WriteLine("}");
-            p_Writer.WriteLine();
 
+            p_Writer.WriteLine("template <>");
+            p_Writer.WriteLine($"fb::uint fb_type_hash<{p_Type.Name}>( )");
+            p_Writer.WriteLine("{");
+            p_Writer.Indent++;
+            {
+                p_Writer.WriteLine($"return {Util.Hash(p_Type.Name)}");
+
+            }
+            p_Writer.Indent--;
+            p_Writer.WriteLine("}");
         }
 
         void GenerateMember(IndentedTextWriter p_Writer, TypeDataMember p_Type)
